@@ -2,7 +2,6 @@
 
 import * as z from "zod"
 import axios from "axios"
-import {  useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -19,6 +18,7 @@ import { useForm } from "react-hook-form"
 import { Heading } from "@/components/Heading"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import {getUser} from "@/hooks/getUser"
 
 const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -31,8 +31,6 @@ type FormValues = z.infer<typeof formSchema>
 
 export const Userform = () => {
 
-  const [open,setOpen]=useState(false);
-  const [loading,setLoading]=useState(false);
   const router=useRouter();
 
   const defaultValues: FormValues = {
@@ -48,21 +46,19 @@ export const Userform = () => {
   })
 
   const onSubmit = async (values: FormValues) => {
-    setLoading(true)
     try {
 
       const response = await axios.post("/api/new", values)
-      toast.success("User created successfully.")
-      console.log(values)
-      setOpen(true)
+      toast.success("User created successfully.");
+
+      router.push(`/${response.data.id}/item`);
+
     } catch (error) {
       console.error(error)
     } finally {
-      setLoading(false)
     }
   }
-
-
+//
   return (
     <>
       <Heading
