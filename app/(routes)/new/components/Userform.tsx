@@ -18,7 +18,6 @@ import { useForm } from "react-hook-form"
 import { Heading } from "@/components/Heading"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
-import {getUser} from "@/hooks/getUser"
 
 const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -66,8 +65,8 @@ export const Userform = () => {
           description="Add a new user to your system."
       />
       <Form {...form}>
-      <div className="md:grid md:grid-cols-2 gap-8">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <div className="md:grid md:grid-cols-2 gap-8">
         <FormField
           control={form.control}
           name="name"
@@ -120,9 +119,14 @@ export const Userform = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        </div>
+        <Button 
+          className={buttonVariants({variant:"ghost"})} 
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
-    </div>
     </Form>
     </>
   )
