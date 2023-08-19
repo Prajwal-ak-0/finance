@@ -5,6 +5,37 @@ interface IParams{
     userId:string;
 }
 
+export async function GET(
+    request: Request,
+    {params}:{params:IParams}
+){
+    try {
+        const {userId}=params;
+
+        if(!userId){
+            return new NextResponse("User Id is required",{status:400});
+        }
+
+        const items=await prisma.item.findMany({
+            where:{
+                userId:userId
+            }
+        });
+
+        const safeItems=items.map((item)=>({
+            ...item,
+            createdAt:item.createdAt.toISOString(),
+            updatedAt:item.updatedAt.toISOString(),
+        }));
+
+        return NextResponse.json(safeItems);
+
+    } catch (error) {
+        console.log('[ITEM_GET_ERROR]',error);
+        return new NextResponse("Internal Server Error",{status:500});
+    }
+}
+
 export async function POST(
     request: Request,
     {params}:{params:IParams}
