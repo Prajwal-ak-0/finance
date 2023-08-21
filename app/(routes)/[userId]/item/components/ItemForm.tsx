@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage} from "@/components/ui/form"
+import { Separator } from "@/components/ui/separator"
 
   interface IParams{
     userId?:string;
@@ -52,6 +53,8 @@ const ItemForm = ({params}:{params:IParams}) => {
       toast.success("Item added successfully.");
 
       item.onClose();
+
+      window.location.href = `/${params.userId}/item`;
 
     } catch (error) {
       console.error(error)
@@ -109,24 +112,28 @@ const ItemForm = ({params}:{params:IParams}) => {
  
   return (
     <>
-      <Heading
-        title='Item Form'
-        description='Add the purchased item'
-      />
+      <div className="flex items-center justify-between">
+        <Heading
+          title='Item Form'
+          description='Add the purchased item'
+        />
 
-      <div className='pt-8' onClick={toggle}>
-        <Button
-          className={buttonVariants({variant:"ghost"})} 
-          type="submit"
-        >
-          <span>
-            <AiOutlinePlusCircle size={22} className="mr-2" />
-          </span> 
-          <span className='text-[16px]'>
-            Item
-          </span>
-        </Button>
+        <div className='pt-8' onClick={toggle}>
+          <Button
+            className={buttonVariants({variant:"ghost"})} 
+            type="submit"
+          >
+            <span>
+              <AiOutlinePlusCircle size={22} className="mr-2" />
+            </span> 
+            <span className='text-[16px]'>
+              Item
+            </span>
+          </Button>
+        </div>
       </div>
+
+      <Separator/>
 
       <Modal
         disabled={loading}
