@@ -18,12 +18,14 @@ import { useForm } from "react-hook-form"
 import { Heading } from "@/components/Heading"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { AiOutlinePlusCircle } from "react-icons/ai"
+import { Separator } from "@/components/ui/separator"
 
 const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
   email: z.string().email("Invalid email").nonempty("Email is required"),
   number: z.string().nonempty("Number is required"),
-  price: z.string().nonempty("Price is required"),
+  price: z.string(),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -36,7 +38,7 @@ export const Userform = () => {
     name: "",
     email: "",
     number: "",
-    price: "",
+    price: "0",
   }
 
   const form=useForm<FormValues>({
@@ -60,13 +62,19 @@ export const Userform = () => {
 //
   return (
     <>
-      <Heading
-          title="Add User"
-          description="Add a new user to your system."
-      />
+      <div className="flex items-center justify-between">
+        <Heading
+          title='Add User'
+          description='Add a user to your system.'
+        />
+
+      </div>
+
+      <Separator/>
+      
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <div className="md:grid md:grid-cols-2 gap-8">
+      <div className="md:grid md:grid-cols-3 gap-8">
         <FormField
           control={form.control}
           name="name"
@@ -106,22 +114,9 @@ export const Userform = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Price</FormLabel>
-              <FormControl>
-                <Input placeholder="$" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         </div>
         <Button 
-          className={buttonVariants({variant:"ghost"})} 
+          className={buttonVariants({variant:"ghost",size:"w"})} 
           type="submit"
         >
           Submit
