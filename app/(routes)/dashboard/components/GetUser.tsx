@@ -1,9 +1,11 @@
 "use client";
 
 import axios from "axios";
-import { Payment } from "./column";
+import { User,columns } from "./column";
 import { useCallback, useEffect, useState } from "react";
 import { format } from "date-fns";
+import EmptyState from "@/components/EmptyState";
+import { DataTable } from "./data-table";
 
 
 const GetUser = () => {
@@ -13,8 +15,7 @@ const GetUser = () => {
   const getItems = useCallback(async () => {
     
     const response = await axios.get(`/api/new`);
-    
-    setItems([]);
+    console.log(response.data);
 
     if (response.status === 200) {
       setItems(response.data);
@@ -29,18 +30,32 @@ const GetUser = () => {
         getItems();
     },[getItems]);  
 
-    const formattedUsers:Payment[]=items.map((item:Payment) => ({
+    const formattedUsers:User[]=items.map((item:User) => ({
         id:item.id,
         email:item.email,
-        amount:item.amount,
-        upiId:item.upiId,
-        mobileNumber:item.mobileNumber,
-        slNo:item.slNo,
+        totalPrice:item.totalPrice,
+        name:item.name,
+        phoneNumber:item.phoneNumber,
     }));
 
-  return (
-    <div>GetUser</div>
-  )
+    if(items.length === 0){
+      return (
+        <EmptyState
+          title='No items found'
+        />
+      )
+    }
+    else{
+      return(
+        <>
+              <div className="flex-col">
+                <div className="flex-1 space-y-4 p-8 pt-6">
+                  <DataTable columns={columns} data={formattedUsers} />
+                </div>
+              </div>
+        </>
+      )
+    }
 }
 
 export default GetUser

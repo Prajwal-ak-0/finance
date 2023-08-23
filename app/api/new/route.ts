@@ -16,6 +16,32 @@ export async function POST(request:Request){
             })
         }
 
+        // const emailExists = await prisma.user.findFirst({
+        //     where:{
+        //         email
+        //     }
+        // })
+
+        // if(emailExists){
+        //     return NextResponse.json({
+        //         status: 400,
+        //         message: "Email already exists"
+        //     })
+        // }
+
+        // const numberExists = await prisma.user.findFirst({  
+        //     where:{
+        //         phoneNumber: number
+        //     }
+        // })
+
+        // if(numberExists){
+        //     return NextResponse.json({
+        //         status: 400,
+        //         message: "Number already exists"
+        //     })
+        // }
+
         const result= await prisma.user.create({
             data: {
                 name,
@@ -26,7 +52,29 @@ export async function POST(request:Request){
         })
         return NextResponse.json(result)
     } catch (error) {
-        console.log('[CATEGORIES_GET]', error);
+        console.log('[CATEGORIES_POST]', error);
         return new NextResponse("Internal error", { status: 500 });
+    }
+}
+
+
+export async function GET(
+    request: Request
+){
+    try {
+
+        const items=await prisma.user.findMany();
+
+        const safeItems=items.map((item)=>({
+            ...item,
+            createdAt:item.createdAt.toISOString(),
+            updatedAt:item.updatedAt.toISOString(),
+        }));
+
+        return NextResponse.json(safeItems);
+
+    } catch (error) {
+        console.log('[ITEM_GET_ERROR]',error);
+        return new NextResponse("Internal Server Error",{status:500});
     }
 }

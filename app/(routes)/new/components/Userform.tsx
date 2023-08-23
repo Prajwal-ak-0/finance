@@ -50,11 +50,13 @@ export const Userform = () => {
     try {
 
       const response = await axios.post("/api/new", values)
-      toast.success("User created successfully.");
-
-      router.push(`/${response.data.id}/item`);
-
+      
+      if(response.status==200){
+        toast.success("User created successfully.");
+        router.push(`/${response.data.id}/item`);
+      }
     } catch (error) {
+      toast.error("Something went wrong.");
       console.error(error)
     } finally {
     }
