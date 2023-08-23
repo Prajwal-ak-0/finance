@@ -22,7 +22,13 @@ export async function GET(
             }
         });
 
-        return NextResponse.json(items);
+        const safeItems=items.map((item)=>({
+            ...item,
+            createdAt:item.createdAt.toISOString(),
+            updatedAt:item.updatedAt.toISOString(),
+        }));
+
+        return NextResponse.json(safeItems);
 
     } catch (error) {
         console.log('[ITEM_GET_ERROR]',error);

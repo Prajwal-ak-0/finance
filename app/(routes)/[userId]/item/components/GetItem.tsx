@@ -18,14 +18,12 @@ const GetItems:React.FC<IParams> =({
   const [items, setItems] = useState([]);
 
   const getItems = useCallback(async () => {
-    
-    const response = await axios.get(`/api/${userId}/item`);
-    
     setItems([]);
-
+    const response = await axios.get(`/api/${userId}/item`);
     if (response.status === 200) {
+      const items = response.data;
+      console.log(items);
       setItems(response.data);
-      
     } else {
       console.log(response.status);
       console.log(response.data);
@@ -55,7 +53,7 @@ const GetItems:React.FC<IParams> =({
       <>
             <div className="flex-col">
               <div className="flex-1 space-y-4 p-8 pt-6">
-                <DataTable searchKey="name" columns={columns} data={formattedItems} />
+                <DataTable searchKey="itemName" columns={columns} data={formattedItems} />
               </div>
             </div>
       </>

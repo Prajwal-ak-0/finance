@@ -74,7 +74,6 @@ const ItemForm = ({params}:{params:IParams}) => {
       toast.success("Item added successfully.");
 
       item.onClose();
-
       window.location.href = `/${params.userId}/item`;
 
     } catch (error) {
@@ -221,6 +220,7 @@ const ItemForm = ({params}:{params:IParams}) => {
       </div>
 
       <Separator/>
+      
 
       <ItemModal
         disabled={loading}
