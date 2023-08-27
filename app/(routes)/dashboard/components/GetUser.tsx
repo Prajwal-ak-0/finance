@@ -5,7 +5,7 @@ import { User,columns } from "./column";
 import { useCallback, useEffect, useState } from "react";
 import { format } from "date-fns";
 import EmptyState from "@/components/EmptyState";
-import { DataTable } from "./data-table";
+import { DataTable } from "./DataTable";
 
 
 const GetUser = () => {

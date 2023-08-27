@@ -188,7 +188,8 @@ const ItemForm = ({params}:{params:IParams}) => {
           title='Item Form'
           description='Add the purchased item'
         />
-        <div className='pt-8 flex items-center justify-between'>
+        <div className='mt-8 flex items-center justify-between'>
+          
           <div onClick={toggleUpiModal} className='mr-2 md:mr-4'>
             <Button
               className={buttonVariants({variant:"ghost"})} 
@@ -215,8 +216,8 @@ const ItemForm = ({params}:{params:IParams}) => {
                 Item
               </span>
             </Button>
+            </div>
           </div>
-        </div>
       </div>
 
       <Separator/>

@@ -3,11 +3,12 @@ import React from 'react'
 import Logo from './Logo'
 import Container from './Container'
 import UserMenu from './UserMenu'
+import { ModeToggle } from './ModeToggle'
 
 
 const Navbar = ({}) => {
   return (
-    <div className='relative w-full bg-white z-10 shadow-lg'>
+    <div className='relative w-full  shadow-lg'>
         <div className='py-4 border-b-[1px]'>
             <Container>
                 <div
@@ -20,7 +21,8 @@ const Navbar = ({}) => {
                         md:gap-0
                     '
                 >
-                    <Logo/>
+                    <Logo/> 
+                    
                     <UserMenu/>
                 </div>
             </Container>

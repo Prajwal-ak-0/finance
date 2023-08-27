@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { buttonVariants } from "@/components/ui/button"
 import MenuItem from "./MenuItem";
 import { AiOutlineMenu } from "react-icons/ai";
+import { ModeToggle } from "./ModeToggle";
 
 const UserMenu = ({}) => {
   const router = useRouter();
@@ -35,6 +36,7 @@ const UserMenu = ({}) => {
               Dashboard
           </Button>
         </div>
+        <ModeToggle/>
         <div 
         onClick={toggleOpen}
         className="

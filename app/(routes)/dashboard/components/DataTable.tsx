@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import {
@@ -66,18 +66,21 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="md:max-w-sm"
           style={{
-            backgroundColor: 'black',
+            backgroundColor: '',
             color: 'white',
             transition: 'background-color 0.3s, color 0.3s', 
           }}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto" style={{ backgroundColor: 'black', color: 'white', transition: 'background-color 0.3s, color 0.3s' }}>
+            <div className="md:ml-auto">
+            <Button className=
+              {buttonVariants({variant:"ghost"})}  >
               Columns
             </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {table
